@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="600px" viewBox="0 0 600 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Help</title>
+    <g id="Help" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="background" fill="#C0C0C0">
+            <rect id="background-back" x="0" y="0" width="600" height="600" rx="80"></rect>
+            <rect id="background-trans" x="0" y="0" width="600" height="600" rx="80"></rect>
+        </g>
+        <text id="by-Raphael" font-family="Avenir-Book, Avenir" font-size="20" font-weight="normal" fill="#000000">
+            <tspan x="431" y="593">by Raphael </tspan>
+        </text>
+        <g id="keyH" transform="translate(99.000000, 516.000000)">
+            <text id="Hilfe-anzeigen" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="54" y="28">Hilfe anzeigen </tspan>
+            </text>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="20 23 20 8 20 16 10 16 10 8 10 23"></polyline>
+            </g>
+        </g>
+        <g id="keyF" transform="translate(99.000000, 466.000000)">
+            <text id="Farbe/Monochrom" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="54" y="28">Farbe/Monochrom </tspan>
+            </text>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="17 16 10 16 10 8 20 8 10 8 10 23"></polyline>
+            </g>
+        </g>
+        <g id="keyM" transform="translate(99.000000, 416.000000)">
+            <text id="Darkmode/Lightmode" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="54" y="28">Darkmode/Lightmode </tspan>
+            </text>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="22 23 22 8 15 21 8 8 8 23"></polyline>
+            </g>
+        </g>
+        <g id="keyArrowDown" transform="translate(99.000000, 336.000000)">
+            <text id="Icon-Typ-wechseln" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="54" y="28">Icon-Typ wechseln </tspan>
+            </text>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="11 18 15 24 19 18 15 24 15 6"></polyline>
+            </g>
+        </g>
+        <g id="keyArrowUp" transform="translate(99.000000, 286.000000)">
+            <text id="Timer/Icon-wechseln" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="54" y="28">Timer/Icon wechseln </tspan>
+            </text>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15 24 15 6 19 12 15 6 11 12"></polyline>
+            </g>
+        </g>
+        <g id="keyArrowsSide" transform="translate(49.000000, 236.000000)">
+            <text id="Timer/Icon-ändern" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="104" y="28">Timer/Icon ändern </tspan>
+            </text>
+            <g id="key" transform="translate(50.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="6 15 24 15 18 11 24 15 18 19"></polyline>
+            </g>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <polyline id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="12 19 6 15 12 11 6 15 24 15"></polyline>
+            </g>
+        </g>
+        <g id="keyR" transform="translate(99.000000, 156.000000)">
+            <text id="Zurücksetzen" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="54" y="28">Zurücksetzen </tspan>
+            </text>
+            <g id="key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="29" height="29" rx="5"></rect>
+                <path d="M11,22 L11,15 L11,7 C13.6666667,7 15.3333333,7 16,7 C21,7 21,15 16,15 C15.3333333,15 13.6666667,15 11,15 L16,15 L20,22" id="print" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+        <g id="keySpace" transform="translate(47.000000, 106.000000)">
+            <text id="Start/Pause" font-family="Avenir-Book, Avenir" font-size="28" font-weight="normal" fill="#000000">
+                <tspan x="106" y="28">Start/Pause </tspan>
+            </text>
+            <g id="Key" transform="translate(0.000000, 1.000000)" stroke="#979797">
+                <rect id="cap" fill="#D8D8D8" x="0.5" y="0.5" width="81" height="29" rx="5"></rect>
+                <line x1="14.5" y1="20.5" x2="68" y2="20.5" id="print" stroke-width="2" stroke-linecap="round"></line>
+            </g>
+        </g>
+        <g id="Headline" transform="translate(153.000000, 30.000000)" fill="#000000" font-family="Avenir-Book, Avenir" font-size="38" font-weight="normal">
+            <text id="Hilfe-&amp;-Shortcuts">
+                <tspan x="5.399" y="38">Hilfe &amp; Shortcuts </tspan>
+            </text>
+        </g>
+    </g>
+</svg>

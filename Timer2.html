@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <title>Wunschik's Timer</title>
+    
+    <style type="text/css">
+      body { background-color: #424242; }
+
+      .caption { display: inline-flex; margin: 10px; width: 90%; }
+
+      .icon { min-width: 100px; }
+      .icon .dropitm { float: none; }
+      .icon:hover .dropdown-content { display: inline-block; }
+      .dropbtn * { stroke: #FFD479; }
+      .dropbtn { background-color: #FFD47920; border-radius: 25px;}
+      .dropitm { cursor: pointer; }
+      .dropitm:hover * { stroke: #4CC790; }
+      .dropdown-content { display: none; position: relative; background-color: #424242; min-width: inherit; z-index: 1; border-radius: 30px; }
+
+      .text { width: 100%; }
+      textarea { resize: none; outline: none; border: none; user-select: none; display: block; overflow: auto; background-color: transparent; color: #FFD479; font-family: sans-serif; font-size: 80px; border-radius: 25px; width: 100%; }
+      ::placeholder { color: #FFD479; opacity: 0.5; }
+
+      .hover { border-style: solid; border-radius: 30px; border-width: 4px; border-color: transparent; }
+      .hover:hover { border-color: #4CC790; }
+
+      .gauge-ring { display: block; margin: 10px auto; max-height: 500px; max-width: 500px; }
+      .gauge-ring:hover .controller { visibility: visible; }
+      .gauge-ring:hover .timerDigits { visibility: hidden; }
+      .gauge-ring:hover .minuteMark * { stroke: #4CC790; }
+      .gauge-ring:hover .background { stroke: #4CC790; }
+      .ring { fill: none; stroke-width: 2.8; stroke-linecap: round; }
+      .progress { stroke: #FFC4C4; animation: progress 60s linear backwards paused; animation-fill-mode: forwards; }
+      .background { stroke: #FFC4C4; opacity: 10%; }
+      @keyframes progress { 0% { stroke-dasharray: 100 100; }; 99.999% { opacity: 1.0; }; 100% { opacity: 0.0; }; }
+
+      .timerDigits * { stroke: #FFC4C4; }
+      .minuteMark * { stroke: #FFC4C4; }
+      .setDigits * { stroke: #4CC790; }
+      .item * { fill: #4CC790; cursor: pointer; }
+      #pauseTimer { opacity: 0.0; }
+      .controller { visibility: hidden; }
+    </style>
+
+    <script type="text/javascript">
+      var setMinutes = 15;
+      var timerMinutes = setMinutes;
+      var timerIsOn = false;
+      var timer;
+      
+      let digits = [
+        '<g id="0"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5,6.5 C5,5.23333333 5,4.23333333 5,3.5 C5,2.4 4.1,1.5 3,1.5 C1.9,1.5 1,2.4 1,3.5 C1,4.23333333 1,5.23333333 1,6.5" id="Path" stroke="#4CC790" stroke-width="2"></path><path d="M5,8.6 C5,7.5 4.1,6.6 3,6.6 C1.9,6.6 1,7.5 1,8.6" id="Path" stroke="#4CC790" stroke-width="2" transform="translate(3.000000, 7.600000) scale(1, -1) translate(-3.000000, -7.600000) "></path></g></g>',
+        '<g id="1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><polyline id="Path" stroke="#4CC790" stroke-width="2" points="3 8.5 3 1.5 1 1.5"></polyline></g></g>',
+        '<g id="2"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5,8.5 L1,8.5 C3.66666667,5.9 5,4.23333333 5,3.5 C5,2.4 4.1,1.5 3,1.5 C1.9,1.5 1,2.4 1,3.5" id="Path" stroke="#4CC790" stroke-width="2"></path></g></g>',
+        '<g id="3"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M3,8.5 C4.25,8.5 5,7.6 5,6.5 C5,5.4 4.1,4.5 3,4.5 C1.9,4.5 1,5.4 1,6.5" id="Path" stroke="#4CC790" stroke-width="2" transform="translate(3.000000, 6.500000) scale(1, -1) translate(-3.000000, -6.500000) "></path><path d="M3,4.5 C3.9375,4.5 4.5,3.825 4.5,3 C4.5,2.175 3.825,1.5 3,1.5 C2.175,1.5 1.5,2.175 1.5,3" id="Path" stroke="#4CC790" stroke-width="2"></path></g></g>',
+        '<g id="4"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M3,1.5 C1.66666667,3.5 1,4.83333333 1,5.5 C1.66666667,5.5 3,5.5 5,5.5" id="Path-2" stroke="#4CC790" stroke-width="2"></path><path d="M3,1.5 C5,4 4,6 3,8.5" id="Path" stroke="#4CC790" stroke-width="2"></path></g></g>',
+        '<g id="5"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M4,8.5 L2,8.5 L1.4,6 C3.8,6 5,5.16666667 5,3.5 C5,2.4 4.1,1.5 3,1.5 C1.9,1.5 1,2.4 1,3.5" id="Path" stroke="#4CC790" stroke-width="2" transform="translate(3.000000, 5.000000) scale(1, -1) translate(-3.000000, -5.000000) "></path></g></g>',
+        '<g id="6"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><circle id="Oval" stroke="#4CC790" stroke-width="2" cx="3" cy="6.5" r="2"></circle><path d="M4.77075756,2.57308056 C4.43513319,1.93650683 3.76606735,1.5 3,1.5 C1.9,1.5 1,2.4 1,3.5 C1,4.23333333 1,5.06666667 1,6" id="Path" stroke="#4CC790" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></g>',
+        '<g id="7"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><polyline id="Path" stroke="#4CC790" stroke-width="2" points="2 8.5 4.5 1.5 1.5 1.5"></polyline></g></g>',
+        '<g id="8"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M3,4.5 C3.55228475,4.5 4.05228475,4.72385763 4.41421356,5.08578644 C4.77614237,5.44771525 5,5.94771525 5,6.5 C5,7.05228475 4.77614237,7.55228475 4.41421356,7.91421356 C4.05228475,8.27614237 3.55228475,8.5 3,8.5 C2.44771525,8.5 1.94771525,8.27614237 1.58578644,7.91421356 C1.22385763,7.55228475 1,7.05228475 1,6.5 C1,5.94771525 1.22385763,5.44771525 1.58578644,5.08578644 C1.94771525,4.72385763 2.44771525,4.5 3,4.5 Z" id="Oval" stroke="#4CC790" stroke-width="2"></path><path d="M3,1.5 C3.41421356,1.5 3.78921356,1.66789322 4.06066017,1.93933983 C4.33210678,2.21078644 4.5,2.58578644 4.5,3 C4.5,3.41421356 4.33210678,3.78921356 4.06066017,4.06066017 C3.78921356,4.33210678 3.41421356,4.5 3,4.5 C2.58578644,4.5 2.21078644,4.33210678 1.93933983,4.06066017 C1.66789322,3.78921356 1.5,3.41421356 1.5,3 C1.5,2.58578644 1.66789322,2.21078644 1.93933983,1.93933983 C2.21078644,1.66789322 2.58578644,1.5 3,1.5 L3,1.5 Z" id="Oval" stroke="#4CC790" stroke-width="2"></path></g></g>',
+        '<g id="9"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><circle id="Oval" stroke="#4CC790" stroke-width="2" transform="translate(3.000000, 3.500000) scale(-1, -1) translate(-3.000000, -3.500000) " cx="3" cy="3.5" r="2"></circle><path d="M5,5.07308056 C4.66437563,4.43650683 3.9953098,4 3.22924244,4 C2.12924244,4 1.22924244,4.9 1.22924244,6 C1.22924244,6.73333333 1.22924244,7.56666667 1.22924244,8.5" id="Path" stroke="#4CC790" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(3.114621, 6.250000) scale(-1, -1) translate(-3.114621, -6.250000) "></path></g></g>',
+      ];
+      
+      var icon = 0;
+      
+      let icons = [
+        '<g id="book" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round"><path d="M23,82 L23,23 C23,19.1340068 26.1340068,16 30,16 L72,16 C75.8659932,16 79,19.1340068 79,23 L79,66.2449162 C79.0000026,67.93044 78.3918263,69.5593667 77.2871948,70.8324653 C74.4290649,74.1264877 73,77.1823326 73,80 C73,83.3333333 75,86.3333333 79,89 L30,89 C26.1340068,89 23,85.8659932 23,82 Z" id="Path-3" stroke="#000000" stroke-width="6"></path><path d="M30,72 C26.1340068,72 23,68.8659932 23,65" id="Path" stroke="#000000" stroke-width="6"></path><line x1="63" y1="35" x2="39" y2="35" id="Path" stroke="#000000" stroke-width="6" stroke-linecap="round"></line><line x1="61" y1="49" x2="41" y2="49" id="Path" stroke="#000000" stroke-width="6" stroke-linecap="round"></line><path d="M23,82 L23,79 C23,75.1340068 26.1340068,72 30,72 L73.8786797,72 C75.2369383,72 76.5395661,71.4604339 77.5,70.5 C77.5116353,70.4883647 77.5304999,70.4883647 77.5421352,70.5 C77.5532925,70.5111573 77.5538164,70.5290784 77.5433605,70.5408956 C74.5144535,73.9463393 73,77.0993741 73,80 C73,83.3333333 75,86.3333333 79,89 L30,89 C26.1340068,89 23,85.8659932 23,82 Z" id="Path-3" stroke="#000000" stroke-width="6"></path></g>',
+        '<g id="single" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><ellipse id="Oval" stroke="#000000" stroke-width="6" cx="51" cy="36" rx="12" ry="13"></ellipse><path d="M79,81 C79,69.1258779 66.463973,61 51,61 C35.536027,61 23,69.1258779 23,81 C23,88 79,88 79,81 Z" id="Oval" stroke="#000000" stroke-width="6"></path></g>',
+        '<g id="parner" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Group" transform="translate(12.000000, 33.000000)" stroke="#000000" stroke-width="6"><ellipse id="Oval" cx="19" cy="9" rx="8" ry="9"></ellipse><path d="M35.1096617,32.0754686 C33.7216041,30.5120169 31.8897787,29.20336 29.7388419,28.20585 C26.6838955,26.7891 22.9852334,26 19,26 C8.50658975,26 0,31.4708881 0,39.4653465 C0,42.422131 14.9572512,43.5238735 26.1038451,42.7705738 C28.9071498,42.5811232 31.4694328,42.2743424 33.4921557,41.8502313" id="Path"></path></g><g id="Group" transform="translate(44.000000, 27.000000)" stroke="#000000" stroke-width="6"><ellipse id="Oval" cx="22.5" cy="10.6578947" rx="9.47368421" ry="10.6578947"></ellipse><path d="M45,46.7352788 C45,37.2681569 34.9264069,30.7894737 22.5,30.7894737 C10.0735931,30.7894737 0,37.2681569 0,46.7352788 C0,52.3163106 45,52.3163106 45,46.7352788 Z" id="Oval"></path></g></g>',
+      ];
+      
+      function createIconList() {
+        let iconList = document.getElementById("list");
+        var list = '<div class="dropbtn"><svg viewBox="0 0 100 100"><g transform="translate(0.000000, 0.000000)" href="#">'+icons[icon]+'</g></svg></div>';
+        list += '<div class="dropdown-content">';
+        for (let i = 0; i < icons.length; i++) {
+          if (i != icon) {
+            list += '<div class="dropitm" id="di" onclick="changeIcon('+i+')"><svg viewBox="0 0 100 100"><g transform="translate(0.000000, 0.000000)" href="#">'+icons[i]+'</g></svg></div>';
+          }
+        }
+        list += '</div>';
+        iconList.innerHTML = list;
+      }
+      
+      function changeIcon(iconNumber) {
+        icon = iconNumber;
+        createIconList();
+      }
+      
+      function docWrite() {
+        document.write(setMinutes);
+      }
+      
+      function startTimer() {
+        let progressRing = document.getElementById("progress");
+        if (setMinutes == timerMinutes) {
+          progressRing.style.animationDuration = (setMinutes*60) + "s";
+          changeTimerRunningState(true);
+          startCount();
+        } else {
+          if (progressRing.style.animationPlayState == "running") {
+            changeTimerRunningState(false);
+            pauseCount();
+          } else {
+            changeTimerRunningState(true);
+            startCount();
+          }
+        }
+      }
+      
+      function changeTimerRunningState(isRunning) {
+        var state;
+        if (isRunning) { state = ['running', 0.0, 1.0]; }
+        else { state = ['paused', 1.0, 0.0]; }
+        document.getElementById("progress").style.animationPlayState = state[0];
+        document.getElementById("startTimer").style.opacity = state[1];
+        document.getElementById("pauseTimer").style.opacity = state[2];
+      }
+      
+      function resetTimer() {
+        let progressRing = document.getElementById("progress");
+        let clone = progressRing;
+        clone.style.animationPlayState = "paused";
+        progressRing.parentNode.replaceChild(clone, progressRing);
+        document.getElementById("startTimer").style.opacity = 1.0;
+        document.getElementById("pauseTimer").style.opacity = 0.0;
+        timerMinutes = setMinutes;
+        updateMinuteDigits(timerMinutes, 'Timer')
+        pauseCount();
+      }
+      
+      function changeTimer(value) {
+        if ((value < 0 && setMinutes <= 1) || (value > 0 && setMinutes >= 99)) { return true; }
+        setMinutes += value;
+        resetTimer();
+        updateMinuteDigits(setMinutes, 'Set');
+      }
+      
+      function updateMinuteDigits(minutes, mode) {
+        let firstDigit = document.getElementById("first"+mode+"Digit");
+        let secondDigit = document.getElementById("second"+mode+"Digit");
+        let minuteDigits = [firstDigit, secondDigit];
+        for (let i = 0; i < minuteDigits.length; i++) {
+          let number = minutes.toString().padStart(2, '0').charAt(i);
+          minuteDigits[i].innerHTML = digits[number];
+        }
+      }
+      
+      function startCount() {
+        if (!timerIsOn) {
+          timerIsOn = true;
+          timedCount();
+        }
+      }
+      
+      function timedCount() {
+        if (timerMinutes > 0) {
+          updateMinuteDigits(timerMinutes, 'Timer');
+          timerMinutes = timerMinutes - 1;
+          timer = setTimeout(timedCount, 1000*60);
+        } else {
+          updateMinuteDigits(timerMinutes, 'Timer');
+          alert("Zeit abgelaufen");
+          resetTimer();
+        }
+      }
+      
+      function pauseCount() {
+        clearTimeout(timer);
+        timerIsOn = false;
+      }
+      
+    </script>
+  </head>
+  <body onload="updateMinuteDigits(timerMinutes, 'Timer'), updateMinuteDigits(setMinutes, 'Set'), createIconList()">
+    <div class="caption">
+      <div class="icon hover" id="list"></div>
+      <div class="text">
+        <textarea class="hover" placeholder="Titel" rows="1" spellcheck="false"></textarea>
+      </div>
+    </div>
+    <div class="timer">
+      <div class="gauge">
+        <svg viewBox="0 0 36 36" class="gauge-ring">
+          <path class="background ring"
+            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <path class="progress ring" id="progress"
+            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+            stroke-dasharray="0, 100"
+          />
+          
+          <g transform="translate(24.000000, 12.000000)" class="minuteMark">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="1" y1="2" x2="1" y2="1" id="Path" stroke="#4CC790" stroke-width="2"></line>
+            </g>
+          </g>
+          
+          <g class="timerDigits">
+            <g transform="translate(11.750000, 13.000000)" class="digit" id="firstTimerDigit"></g>
+            <g transform="translate(18.250000, 13.000000)" class="digit" id="secondTimerDigit"></g>
+          </g>
+          
+          <g class="controller">
+            <g class="setDigits">
+              <g transform="translate(11.750000, 13.000000)" class="digit" id="firstSetDigit"></g>
+              <g transform="translate(18.250000, 13.000000)" class="digit" id="secondSetDigit"></g>
+            </g>
+          
+            <g transform="translate(15.500000, 5.000000)" class="item" id="startTimer" onclick="startTimer()">
+              <rect fill-opacity="0.05" fill="#D8D8D8" x="0" y="0" width="5" height="5" rx="2.5"></rect>
+              <path d="M1.82197343,1.2723683 L3.64159716,2.13885579 C3.8410516,2.2338341 3.92574624,2.47251899 3.83076794,2.67197343 C3.79129184,2.75487325 3.72449698,2.8216681 3.64159716,2.86114421 L1.82197343,3.7276317 C1.62251899,3.82261 1.3838341,3.73791536 1.28885579,3.53846092 C1.26327435,3.48473988 1.25,3.42598842 1.25,3.36648749 L1.25,1.63351251 C1.25,1.41259861 1.4290861,1.23351251 1.65,1.23351251 C1.70950093,1.23351251 1.76825239,1.24678685 1.82197343,1.2723683 Z" fill="#000000"></path>
+            </g>
+          
+            <g transform="translate(15.500000, 5.000000)" class="item" id="pauseTimer" onclick="startTimer()">
+              <rect id="Rectangle" fill-opacity="0.05" fill="#D8D8D8" x="0" y="0" width="5" height="5" rx="2.5"></rect>
+              <path d="M1.625,1.25 C1.83210678,1.25 2,1.41789322 2,1.625 L2,3.375 C2,3.58210678 1.83210678,3.75 1.625,3.75 C1.41789322,3.75 1.25,3.58210678 1.25,3.375 L1.25,1.625 C1.25,1.41789322 1.41789322,1.25 1.625,1.25 Z M3.375,1.25 C3.58210678,1.25 3.75,1.41789322 3.75,1.625 L3.75,3.375 C3.75,3.58210678 3.58210678,3.75 3.375,3.75 C3.16789322,3.75 3,3.58210678 3,3.375 L3,1.625 C3,1.41789322 3.16789322,1.25 3.375,1.25 Z" id="Combined-Shape" fill="#000000"></path>
+            </g>
+          
+            <g transform="translate(15.500000, 26.000000)" class="item" onclick="resetTimer()">
+              <rect fill-opacity="0.05" fill="#D8D8D8" x="0" y="0" width="5" height="5" rx="2.5"></rect>
+              <rect fill="#000000" x="1.25" y="1.25" width="2.5" height="2.5" rx="0.5"></rect>
+            </g>
+          
+            <g transform="translate(5.000000, 15.500000)" class="item" onclick="changeTimer(-1)">
+              <rect id="Rectangle" fill-opacity="0.05" fill="#D8D8D8" x="0" y="0" width="5" height="5" rx="2.5"></rect>
+              <path d="M2.5,1 C3.32842712,1 4,1.67157288 4,2.5 C4,3.32842712 3.32842712,4 2.5,4 C1.67157288,4 1,3.32842712 1,2.5 C1,1.67157288 1.67157288,1 2.5,1 Z M3.25,2.25 L1.75,2.25 C1.61192881,2.25 1.5,2.36192881 1.5,2.5 C1.5,2.63443774 1.60611534,2.74409091 1.73915552,2.74976902 L1.75,2.75 L3.25,2.75 C3.38807119,2.75 3.5,2.63807119 3.5,2.5 C3.5,2.36556226 3.39388466,2.25590909 3.26084448,2.25023098 L3.25,2.25 Z" id="Shape" fill="#000000"></path>
+            </g>
+          
+            <g transform="translate(26.000000, 15.500000)" class="item" onclick="changeTimer(+1)">
+              <rect id="Rectangle" fill-opacity="0.05" fill="#D8D8D8" x="0" y="0" width="5" height="5" rx="2.5"></rect>
+              <path d="M2.5,1 C3.32842712,1 4,1.67157288 4,2.5 C4,3.32842712 3.32842712,4 2.5,4 C1.67157288,4 1,3.32842712 1,2.5 C1,1.67157288 1.67157288,1 2.5,1 Z M2.5,1.5 C2.36556226,1.5 2.25590909,1.60611534 2.25023098,1.73915552 L2.25,1.75 L2.25,2.25 L1.75,2.25 C1.61192881,2.25 1.5,2.36192881 1.5,2.5 C1.5,2.63443774 1.60611534,2.74409091 1.73915552,2.74976902 L1.75,2.75 L2.25,2.75 L2.25,3.25 C2.25,3.38807119 2.36192881,3.5 2.5,3.5 C2.63443774,3.5 2.74409091,3.39388466 2.74976902,3.26084448 L2.75,3.25 L2.75,2.75 L3.25,2.75 C3.38807119,2.75 3.5,2.63807119 3.5,2.5 C3.5,2.36556226 3.39388466,2.25590909 3.26084448,2.25023098 L3.25,2.25 L2.75,2.25 L2.75,1.75 C2.75,1.61192881 2.63807119,1.5 2.5,1.5 Z" id="Shape" fill="#000000"></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>

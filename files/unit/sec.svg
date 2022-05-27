@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="3px" viewBox="0 0 9 3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>sec</title>
+    <g id="sec" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8.5,2.5 L8,2.5 C7.44771525,2.5 7,2.05228475 7,1.5 C7,0.94771525 7.44771525,0.5 8,0.5 L8.5,0.5 L8.5,0.5" id="Path-5" stroke="#979797" stroke-width="0.8"></path>
+        <path d="M0.5,2.5 L2,2.5 C2.27614237,2.5 2.5,2.27614237 2.5,2 C2.5,1.72385763 2.27614237,1.5 2,1.5 L1,1.5 C0.723857625,1.5 0.5,1.27614237 0.5,1 C0.5,0.723857625 0.723857625,0.5 1,0.5 L2.5,0.5 L2.5,0.5" id="Path-5" stroke="#979797" stroke-width="0.8"></path>
+        <path d="M5.5,2.5 L5,2.5 C4.44771525,2.5 4,2.05228475 4,1.5 L4,1.5 L4,1.5 L5.5,1.5 L4,1.5 L4,1.5 C4,0.94771525 4.44771525,0.5 5,0.5 L5.5,0.5 L5.5,0.5" id="Path-5" stroke="#979797" stroke-width="0.8"></path>
+    </g>
+</svg>

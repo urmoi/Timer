@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>End</title>
+    <g id="End" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#424242" x="0" y="0" width="36" height="36"></rect>
+        <circle id="Ring" stroke="#FFC4C4" stroke-width="3" opacity="0.268088666" transform="translate(17.915500, 17.915500) scale(1, -1) translate(-17.915500, -17.915500) " cx="17.9155" cy="17.9155" r="15.9155"></circle>
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" fill="#FF2600" cx="18" cy="18" r="17"></circle>
+        <ellipse id="Oval" stroke="#FFFFFF" stroke-width="2" cx="22" cy="18.5" rx="2" ry="2.5"></ellipse>
+        <path d="M6,21 L9.75,21 C10.4403559,21 11,20.4403559 11,19.75 C11,19.0596441 10.4403559,18.5 9.75,18.5 L7.25,18.5 C6.55964406,18.5 6,17.9403559 6,17.25 C6,16.5596441 6.55964406,16 7.25,16 L10,16 L10,16" id="Path-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M15.5,17.25 L15.5,21 L15.5,21 L15.5,17.25 C15.5,16.5596441 14.9403559,16 14.25,16 L13,16 L18,16 L16.75,16 C16.0596441,16 15.5,16.5596441 15.5,17.25 Z" id="Path-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M28.5,16 C27.6715729,16 27,16.6715729 27,17.5 C27,18.3284271 27.6715729,19 28.5,19 C29.3284271,19 30,18.3284271 30,17.5 C30,16.6715729 29.3284271,16 28.5,16 L27,16 L27,16 L27,21 L27,20.5 C27,19.6715729 27.6715729,19 28.5,19 C29.3284271,19 30,18.3284271 30,17.5" id="Path" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+</svg>
